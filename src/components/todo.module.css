@@ -1,0 +1,24 @@
+.wrapper {
+  width: 400px;
+  margin: 20px auto 0;
+}
+
+.list {
+  width: 400px;
+  min-height: 200px;
+  margin: 0 auto;
+  border: 1px solid orangered;
+}
+
+.input {
+  width: 270px;
+  padding: 8px;
+}
+
+.btn {
+  background-color: aqua;
+  color: red;
+  border-radius: 12px;
+  display: inline-block;
+  margin: 0 0 40px 20px;
+}

@@ -1,56 +1,51 @@
-// import { useState } from "react";
-// import reactLogo from "./assets/react.svg";
-// import viteLogo from "/vite.svg";
 import "./App.css";
+import { useState } from "react";
+import s from "./todo.module.css";
 
-import Product from "./Product";
+const App = () => {
+  const [task, setTask] = useState([]);
+  const [todo, setTodo] = useState("");
+  const addChange = (e) => {
+    setTodo(e.target.value);
+  };
+  const handleAddClick = () => {
+    if (todo.trim() === "") {
+      return alert("add some tasks!!!");
+    }
+    setTask((prev) => [...prev, { key: crypto.randomUUID(), taskText: todo }]);
+    setTodo("");
+  };
 
-export default function App() {
+  const deleteBTN = (e) => {
+    setTask(task.filter((item) => item.key !== e.target.id));
+  };
+
   return (
-    <div>
-      <h1>Best selling</h1>
-      <Product
-        name="Tacos With Lime"
-        imgUrl="https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?dpr=2&h=480&w=640"
-        price={9}
+    <div className={s.wrapper}>
+      <input
+        type="text"
+        placeholder="Add your taks here!"
+        className={s.input}
+        onChange={addChange}
+        value={todo}
       />
-      <Product
-        name="Fries and Burger"
-        imgUrl="https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg?dpr=2&h=480&w=640"
-        price={14.29}
-      />
+      <button className={s.btn} onClick={handleAddClick}>
+        Add task!!!
+      </button>
+      <ul className={s.list}>
+        {task.map((item) => {
+          return (
+            <li key={item.key}>
+              {item.taskText}{" "}
+              <button onClick={deleteBTN} id={item.key}>
+                x
+              </button>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
-}
+};
 
-function Gallery({ name, secondName, job, age = 30 }) {
-  return (
-    <ul>
-      <li>
-        His name :{name} {secondName}
-      </li>
-      <li>this person is {age}</li>
-      <li>Your working place : {job}</li>
-    </ul>
-  );
-}
-
-export function Hero() {
-  return (
-    <div>
-      <Gallery name="Vlad" secondName="Tykhyi" job="Mechanical operator" />
-    </div>
-  );
-}
-
-function Persoon({ naam, leeftijd }) {
-  return (
-    <p>
-      {naam} is {leeftijd} jaar oud.
-    </p>
-  );
-}
-
-export function Human() {
-  return <Persoon naam="Tom" leeftijd={30} />;
-}
+export default App;
